@@ -14,7 +14,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 # Options
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
-option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." ON)
+option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)
 option(ENABLE_COVERAGE "Enable a Code Coverage build." ON)
@@ -37,6 +37,12 @@ include(ConfigSafeGuards)
 include(AddGitSubmodule)
 include(Docs)
 include(Tools)
+include(sdl2/FindSDL2)
+include(sdl2/FindSDL2_gfx)
+include(sdl2/FindSDL2_image)
+include(sdl2/FindSDL2_mixer)
+include(sdl2/FindSDL2_net)
+include(sdl2/FindSDL2_ttf)
 
 if(ENABLE_WARNINGS)
     include(Warnings)
@@ -55,11 +61,11 @@ if(ENABLE_LTO)
 endif()
 
 # EXTERNAL LIBRARIES
+find_package(SDL2 REQUIRED)
 message(STATUS "Using CPM")
 include(CPM)
 
 # SUB DIRECTORIES
-
 add_subdirectory(configured)
 add_subdirectory(external)
 add_subdirectory(src)
